@@ -3,11 +3,11 @@
 import { onLogin } from '../support/page_object/login-command'
 
 describe('Search item', () => {
-	let search = [
-		'Apple Pomace',
-		'Banana Juice (1000ml)',
-		'Melon Bike (Comeback-Product 2018 Edition)',
-	]
+	before('product', () => {
+		cy.fixture('product').then(data => {
+			globalThis.data = data
+		})
+	})
 
 	describe('searching', () => {
 		beforeEach(() => {
@@ -17,14 +17,14 @@ describe('Search item', () => {
 		})
 
 		it('Validate the search item and add to cart', () => {
-			cy.wrap(search).each(search => {
+			globalThis.data.productName.forEach(element => {
 				cy.get('#searchQuery').click()
 				cy.get('#mat-input-0')
 					.clear({ force: true })
-					.type(search)
+					.type(element)
 					.type('{enter}')
 				cy.get('.item-name').then(itemName => {
-					cy.wrap(itemName).should('contain', search)
+					cy.wrap(itemName).should('contain', element)
 				})
 			})
 		})
@@ -36,21 +36,19 @@ describe('Search item', () => {
 			cy.wait(2000)
 		})
 		it('Add item to basket', () => {
-			cy.wrap(search).each(search => {
+			globalThis.data.productName.forEach(element => {
 				cy.get('#searchQuery').click()
 				cy.get('#mat-input-0')
 					.clear({ force: true })
-					.type(search)
+					.type(element)
 					.type('{enter}')
 				cy.get('.item-name').then(itemName => {
-					cy.wrap(itemName).should('contain', search)
+					cy.wrap(itemName).should('contain', element)
 					cy.get('.mat-button-wrapper')
 						.contains('Add to Basket')
 						.click()
 				})
 			})
-			cy.get('.mat-button-wrapper').contains('Your Basket').click()
-			cy.get('.cdk-column-product').eq(1).should('contain', search[0])
 		})
 
 		it('Add and remove item in the basket', () => {

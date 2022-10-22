@@ -10,7 +10,7 @@ describe('Add debit or credit card', () => {
 	const digitNumber = Number(digitString)
 
 	beforeEach(() => {
-		onLogin.loginJuice('test@example.com', 'poyoyo')
+		onLogin.loginJuice('poy@example.com', 'poyoyo')
 	})
 
 	it('Add card', () => {
@@ -43,7 +43,7 @@ describe('Add debit or credit card', () => {
 		cy.get('.mat-button-wrapper')
 			.contains('Continue')
 			.click({ force: true })
-		cy.get('.confirmation').should('contain', 50)
+		cy.get('.confirmation').should('contain', 10)
 		cy.get('.mat-simple-snack-bar-content').should(
 			'contain',
 			'Wallet successfully charged.'
