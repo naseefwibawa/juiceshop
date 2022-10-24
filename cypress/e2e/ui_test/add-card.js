@@ -1,6 +1,7 @@
 /// <reference types="Cypress"/>
 
-import { onLogin } from '../support/page_object/login-command'
+import { onLogin } from '../../support/page_object/login-command'
+import { paymentLoc } from '../../support/locator/paymentLoc'
 
 describe('Add debit or credit card', () => {
 	let cardNumber =
@@ -24,7 +25,9 @@ describe('Add debit or credit card', () => {
 		cy.get('#mat-input-6')
 			.select('2080', { force: true })
 			.should('have.value', '2080')
-		cy.get('.mat-button-wrapper').contains('Submit').click({ force: true })
+		cy.get(paymentLoc.submitCardBtn)
+			.contains('Submit')
+			.click({ force: true })
 		cy.get('.mat-simple-snack-bar-content').should(
 			'contain',
 			'Your card ending with ' +
@@ -38,12 +41,11 @@ describe('Add debit or credit card', () => {
 		cy.get('.mat-menu-trigger').contains('Orders & Payment').click()
 		cy.get('.mat-menu-item').contains('Digital Wallet').click()
 		cy.get('[type="number"]').type('10')
-		cy.get('#submitButton').click()
+		cy.get(paymentLoc.continueWalletBtn).click()
 		cy.get('#mat-radio-40').click()
-		cy.get('.mat-button-wrapper')
-			.contains('Continue')
-			.click({ force: true })
-		cy.get('.confirmation').should('contain', 10)
+		cy.get(paymentLoc.submitWalletBtn).click({ force: true })
+		cy.wait(1000)
+		cy.get('.confirmation').should('contain', 20)
 		cy.get('.mat-simple-snack-bar-content').should(
 			'contain',
 			'Wallet successfully charged.'

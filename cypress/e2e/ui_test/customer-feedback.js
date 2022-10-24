@@ -1,6 +1,6 @@
 /// <reference types="Cypress"/>
 
-import { onLogin } from '../support/page_object/login-command'
+import { onLogin } from '../../support/page_object/login-command'
 
 describe('Customer feedback', () => {
 	beforeEach(() => {

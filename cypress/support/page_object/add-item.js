@@ -1,14 +1,19 @@
+import Homepage from '../locator/Homepage'
+import cartLoc from '../locator/cartLoc'
+
 export class addItem {
 	addProduct(productName) {
-		cy.get('#searchQuery').click()
-		cy.get('#mat-input-0')
+		cy.get(Homepage.searchBtn).click({ force: true })
+		cy.get(Homepage.inputSearchField)
 			.clear({ force: true })
 			.type(productName)
 			.type('{enter}')
-		cy.get('.item-name').then(element => {
+		cy.get(cartLoc.itemName).then(element => {
 			cy.wrap(element).should('contain', productName)
-			cy.get('.mat-button-wrapper').contains('Add to Basket').click()
-			cy.get('.mat-simple-snack-bar-content').should(
+			cy.get(cartLoc.addItemToCart)
+				.should('contain', 'Add to Basket')
+				.click({ force: true })
+			cy.get(cartLoc.confirmationItemAdded).should(
 				'contain',
 				'Placed ' + productName + ' into basket.'
 			)
@@ -16,16 +21,13 @@ export class addItem {
 	}
 
 	removeItem(productName) {
-		cy.get('.mat-button-wrapper').contains('Your Basket').click()
-		cy.get('.mat-row')
-			.find('.cdk-column-product')
+		cy.get(cartLoc.cartNav).should('contain', 'Your Basket').click()
+		cy.get(cartLoc.productTable)
+			.contains(cartLoc.productRow, productName)
 			.then(element => {
-				if (cy.wrap(element).contains(productName)) {
-					cy.get('.mat-row')
-						.eq(0)
-						.find('.fa-trash-alt')
-						.click({ force: true })
-				}
+				cy.wrap(element)
+					.find(cartLoc.removeItemBtn)
+					.click({ force: true })
 			})
 	}
 }

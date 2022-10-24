@@ -1,7 +1,7 @@
 /// <reference types="Cypress"/>
 
-import { addItemToBasket } from '../support/page_object/add-item'
-import { onLogin } from '../support/page_object/login-command'
+import { addItemToBasket } from '../../support/page_object/add-item'
+import { onLogin } from '../../support/page_object/login-command'
 
 describe('Check out item ', () => {
 	before('product', () => {
