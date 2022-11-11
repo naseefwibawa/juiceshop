@@ -2,6 +2,7 @@
 
 import { onLogin } from '../../support/page_object/login-command'
 import { paymentLoc } from '../../support/locator/paymentLoc'
+import { navigateTo } from '../../support/page_object/navigation'
 
 describe('Add debit or credit card', () => {
 	let cardNumber =
@@ -15,20 +16,20 @@ describe('Add debit or credit card', () => {
 	})
 
 	it('Add card', () => {
-		cy.get('#navbarAccount').click()
-		cy.get('.mat-menu-trigger').contains('Orders & Payment').click()
-		cy.get('.mat-menu-item').contains('My Payment Options').click()
-		cy.get('.mat-expansion-panel-header').click()
-		cy.get('#mat-input-3').type('trial')
-		cy.get('[type="number"]').type(cardNumber)
-		cy.get('#mat-input-5').select('5').should('have.value', '5')
-		cy.get('#mat-input-6')
+		navigateTo.myPaymentPage()
+		cy.get(paymentLoc.addNewCard).click()
+		cy.get(paymentLoc.nameField).type('trial')
+		cy.get(paymentLoc.cardNumberField).type(cardNumber)
+		cy.get(paymentLoc.expiredMonthField)
+			.select('5')
+			.should('have.value', '5')
+		cy.get(paymentLoc.expiredYearField)
 			.select('2080', { force: true })
 			.should('have.value', '2080')
 		cy.get(paymentLoc.submitCardBtn)
 			.contains('Submit')
 			.click({ force: true })
-		cy.get('.mat-simple-snack-bar-content').should(
+		cy.get(paymentLoc.confirmationCardAdded).should(
 			'contain',
 			'Your card ending with ' +
 				digitNumber +
@@ -36,17 +37,35 @@ describe('Add debit or credit card', () => {
 		)
 	})
 
-	it('Adding digital wallet', () => {
-		cy.get('#navbarAccount').click()
-		cy.get('.mat-menu-trigger').contains('Orders & Payment').click()
-		cy.get('.mat-menu-item').contains('Digital Wallet').click()
-		cy.get('[type="number"]').type('10')
+	it.only('Adding digital wallet', () => {
+		let amount = 10
+		let x
+		let totalAmount = amount + x
+
+		navigateTo.digitalWalletPage()
+		cy.get(paymentLoc.walletBallance).then(wallet => {
+			cy.wrap(wallet.text())
+			x = Number(wallet.text())
+			cy.log(x)
+		})
+		cy.get(paymentLoc.amountField).type(amount)
 		cy.get(paymentLoc.continueWalletBtn).click()
-		cy.get('#mat-radio-40').click()
+		cy.get(paymentLoc.cardTable)
+			.contains(paymentLoc.cardRow, '5724')
+			.then(element => {
+				cy.wrap(element)
+					.find(paymentLoc.cardRadio)
+					.click({ force: true })
+			})
 		cy.get(paymentLoc.submitWalletBtn).click({ force: true })
 		cy.wait(1000)
-		cy.get('.confirmation').should('contain', 20)
-		cy.get('.mat-simple-snack-bar-content').should(
+		cy.get(paymentLoc.walletBallance).then(value => {
+			let totals = Number(value.text())
+			cy.log(totalAmount)
+			cy.log(totals)
+			// expect(totals).to.eql(totalAmount)
+		})
+		cy.get(paymentLoc.confirmationCardAdded).should(
 			'contain',
 			'Wallet successfully charged.'
 		)

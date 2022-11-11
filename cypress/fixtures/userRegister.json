@@ -1,0 +1,12 @@
+{
+	"email": "test@example.com",
+	"password": "poyoyo",
+	"passwordRepeat": "poyoyo",
+	"securityQuestion": {
+		"id": 2,
+		"question": "Mother's maiden name?",
+		"createdAt": "2022-10-24T05:30:50.330Z",
+		"updatedAt": "2022-10-24T05:30:50.330Z"
+	},
+	"securityAnswer": "poyoyo"
+}

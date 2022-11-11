@@ -1,56 +1,45 @@
 /// <reference types="Cypress" />
 
+import AccountPage from '../../support/locator/AccountPage'
+import addressLoc from '../../support/locator/addressLoc'
+import OrderPaymentPage from '../../support/locator/OrderAndPayment'
+import { AddressCheck } from '../../support/page_object/address'
 import { onLogin } from '../../support/page_object/login-command'
+import { navigateTo } from '../../support/page_object/navigation'
 
 describe('Add address', () => {
+	before(() => {
+		cy.fixture('address').then(data => {
+			globalThis.data = data
+		})
+	})
+
 	beforeEach(() => {
 		onLogin.loginJuice('poy@example.com', 'poyoyo')
 	})
 
-	it.only('add address', () => {
-		cy.get('#navbarAccount').click()
-		cy.get('.mat-menu-trigger').contains('Orders & Payment').click()
-		cy.get('.mat-menu-item').contains('My saved addresses').click()
-		cy.get('.mat-button-wrapper').contains('Add New Address').click()
-		cy.get('[placeholder="Please provide a country."]').type('US')
-		cy.get('[placeholder="Please provide a name."]').type('poyoyo')
-		cy.get('[placeholder="Please provide a mobile number."]').type(
-			'555888000'
-		)
-		cy.get('[placeholder="Please provide a ZIP code."]').type('55574')
-		cy.get('#address').type('demangan baru')
-		cy.get('[placeholder="Please provide a city."]').type('manchester')
-		cy.get('[placeholder="Please provide a state."]').type('irelandish')
-		cy.get('.mat-button-wrapper').contains('Submit').click()
-		cy.get('.mat-simple-snack-bar-content').should(
-			'contain',
-			'The address at manchester has been successfully added to your addresses.'
+	it('add address', () => {
+		navigateTo.addNewAddressPage()
+		cy.wait(1000)
+		AddressCheck.checkRequiredField()
+		AddressCheck.addNewAddress(
+			globalThis.data.userCountry,
+			globalThis.data.username,
+			globalThis.data.userMobileNumber,
+			globalThis.data.userZIPcode,
+			globalThis.data.userAddress,
+			globalThis.data.userCity,
+			globalThis.data.userState
 		)
 	})
 
-	it('update address', () => {
-		cy.get('#navbarAccount').click()
-		cy.get('.mat-menu-trigger').contains('Orders & Payment').click()
-		cy.get('.mat-menu-item').contains('My saved addresses').click()
-		cy.get('.mat-button-wrapper').find('.fa-edit').eq(0).click()
-		cy.get('[placeholder="Please provide a city."]')
-			.clear()
-			.type('argentina')
-		cy.get('.mat-button-wrapper').contains('Submit').click()
-		cy.get('.mat-simple-snack-bar-content').should(
-			'contain',
-			'The address at argentina has been successfully updated.'
-		)
+	it.skip('update address', () => {
+		navigateTo.addressPage()
+		AddressCheck.updateUserAddress(globalThis.data.userCity, 'Argentinoz')
 	})
 
 	it('remove the addess', () => {
-		cy.get('#navbarAccount').click()
-		cy.get('.mat-menu-trigger').contains('Orders & Payment').click()
-		cy.get('.mat-menu-item').contains('My saved addresses').click()
-		cy.get('.mat-button-wrapper').find('.fa-trash-alt').eq(0).click()
-		cy.get('.mat-simple-snack-bar-content').should(
-			'contain',
-			'Your address has been removed.'
-		)
+		navigateTo.addressPage()
+		AddressCheck.removeUserAddress(globalThis.data.userCity)
 	})
 })

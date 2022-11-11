@@ -12,11 +12,15 @@ export class paymentLoc {
 	static expiredMonthField = '#mat-input-5'
 	static expiredYearField = '#mat-input-6'
 	static submitCardBtn = '#submitButton'
-	static amountField = '#mat-input-7'
+	static amountField = '#mat-input-3'
 	static continueWalletBtn = '#submitButton'
 	static backWalletBtn = '.btn-return'
 	static cardRadio = '.mat-radio-outer-circle'
 	static submitWalletBtn = '.nextButton'
+	static confirmationCardAdded = '.mat-simple-snack-bar-content'
+	static cardTable = '.mat-table'
+	static cardRow = '.mat-row'
+	static walletBallance = '.confirmation'
 }
 
 export default paymentLoc

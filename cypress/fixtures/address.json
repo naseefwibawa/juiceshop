@@ -1,20 +1,9 @@
-[
-	{
-		"country": "UK",
-		"name": "James Gorgon",
-		"mobileNumber": 554689001,
-		"ZIPcode": 55345,
-		"address": "Apartment Manchester city 78",
-		"city": "Manchester",
-		"state": "Londonism"
-	},
-	{
-		"country": "UK",
-		"name": "Simon Pegg",
-		"mobileNumber": 554935501,
-		"ZIPcode": 55345,
-		"address": "Apartment Vienna Mojosongo 33",
-		"city": "Liverpool",
-		"state": "Londonism"
-	}
-]
+{
+	"userCountry": "UK",
+	"username": "James Gorgon",
+	"userMobileNumber": 554689001,
+	"userZIPcode": 55345,
+	"userAddress": "Apartment Manchester city 78",
+	"userCity": "Manchester",
+	"userState": "Londonism"
+}

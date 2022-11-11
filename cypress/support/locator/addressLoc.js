@@ -3,11 +3,13 @@ export class addressLoc {
 		'#mat-radio-40 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
 	static secondAddressRadio =
 		'#mat-radio-41 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
-	static addNewAddressBtn = 'div.ng-star-inserted > .mat-focus-indicator'
+	static addNewAddressBtn = '[routerlink="/address/create"]'
+	static editAddressBtn = '.cdk-column-Edit > .mat-focus-indicator'
 	static editFirstAddressBtn =
 		':nth-child(2) > .cdk-column-Edit > .mat-focus-indicator'
 	static editSecondAddressBtn =
 		':nth-child(3) > .cdk-column-Edit > .mat-focus-indicator'
+	static removeAddressBtn = '.cdk-column-Remove > .mat-focus-indicator'
 	static removeFirstAddressBtn =
 		':nth-child(2) > .cdk-column-Remove > .mat-focus-indicator'
 	static removeSecondAddressBtn =
@@ -21,6 +23,9 @@ export class addressLoc {
 	static stateField = '[placeholder="Please provide a state."]'
 	static backBtn = '.btn-return'
 	static submitBtn = '#submitButton'
+	static confirmationAddressAdded = '.mat-simple-snack-bar-content'
+	static addressTable = '.mat-table'
+	static addressRow = '.mat-row'
 }
 
 export default addressLoc
