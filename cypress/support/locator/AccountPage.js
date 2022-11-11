@@ -1,6 +1,6 @@
 export class AccountPage {
-	static email = '#email'
-	static password = '#password'
+	static emailField = '#email'
+	static passwordField = '#password'
 	static AccNav = '#navbarAccount'
 	static LoginNav = '#navbarLoginButton'
 	static loginBtn = '#loginButton'
@@ -10,7 +10,7 @@ export class AccountPage {
 	static repeatNewPassword = '#newPasswordRepeat'
 	static securityAnswerNew = '#securityAnswer'
 	static resetBtn = '#resetButton'
-	static checkboxRememberMe = '.mat-checkbox-inner-container'
+	static checkboxRememberMe = '#rememberMe-input'
 	static eyeHiddenBtn =
 		'.mat-form-field-suffix > .mat-focus-indicator > .mat-button-wrapper'
 	static notYetCustomerBtn = '#newCustomerLink'
@@ -19,6 +19,7 @@ export class AccountPage {
 	static repeatPasswordReg = '#repeatPasswordControl'
 	static togglePasswordAdvice = '.mat-slide-toggle-thumb'
 	static securityQuestion = '[name="securityQuestion"]'
+	static listSecQuestion = '[role="listbox"]'
 	static firstQuestion = '#mat-option-12 > .mat-option-text'
 	static secondQuestion = '#mat-option-13 > .mat-option-text'
 	static thirdQuestion = '#mat-option-14 > .mat-option-text'
@@ -29,6 +30,8 @@ export class AccountPage {
 	static registerBtn = '#registerButton'
 	static alreadyCustomerLink = '#alreadyACustomerLink'
 	static logoutBtn = '#navbarLogoutButton'
+	static confirmationMessage = '.mat-simple-snack-bar-content'
+	static errorMessage = '.error'
 }
 
 export default AccountPage

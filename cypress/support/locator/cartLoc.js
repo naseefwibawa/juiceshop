@@ -8,15 +8,15 @@ export class cartLoc {
 	static totalPrice = '#price'
 	static nextBtn = '.btn-next'
 	static oneDayDelivery =
-		'#mat-radio-42 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
+		'#mat-radio-41 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
 	static oneDayDeliveryPrice = ':nth-child(2) > .cdk-column-Price'
 	static oneDayDeliveryETA = ':nth-child(2) > .cdk-column-ETA'
 	static fastDelivery =
-		'#mat-radio-43 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
+		'#mat-radio-42 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
 	static fastDeliveryPrice = ':nth-child(3) > .cdk-column-Price'
 	static fastDeliveryETA = ':nth-child(3) > .cdk-column-ETA'
 	static standardDelivery =
-		'#mat-radio-44 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
+		'#mat-radio-43 > .mat-radio-label > .mat-radio-container > .mat-radio-outer-circle'
 	static standardDeliveryPrice = ':nth-child(4) > .cdk-column-Price'
 	static standardDeliveryETA = ':nth-child(4) > .cdk-column-ETA'
 	static backBtn = '.btn-return'
@@ -39,6 +39,7 @@ export class cartLoc {
 	static productItemNameAdded = '.mat-row > .cdk-column-product'
 	static productTable = '.mat-table'
 	static productRow = '.mat-row'
+	static productItemName = '.cdk-column-product'
 }
 
 export default cartLoc

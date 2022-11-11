@@ -37,7 +37,7 @@ describe('Add debit or credit card', () => {
 		)
 	})
 
-	it.only('Adding digital wallet', () => {
+	it('Adding digital wallet', () => {
 		let amount = 10
 		let x
 		let totalAmount = amount + x
@@ -51,7 +51,7 @@ describe('Add debit or credit card', () => {
 		cy.get(paymentLoc.amountField).type(amount)
 		cy.get(paymentLoc.continueWalletBtn).click()
 		cy.get(paymentLoc.cardTable)
-			.contains(paymentLoc.cardRow, '5724')
+			.contains(paymentLoc.cardRow, digitNumber)
 			.then(element => {
 				cy.wrap(element)
 					.find(paymentLoc.cardRadio)

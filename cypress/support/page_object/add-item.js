@@ -21,7 +21,7 @@ export class addItem {
 	}
 
 	removeItem(productName) {
-		cy.get(cartLoc.cartNav).should('contain', 'Your Basket').click()
+		cy.get(cartLoc.cartNav).should('be.visible').click()
 		cy.get(cartLoc.productTable)
 			.contains(cartLoc.productRow, productName)
 			.then(element => {

@@ -1,5 +1,7 @@
 /// <reference types="Cypress"/>
 
+import addressLoc from '../../support/locator/addressLoc'
+import cartLoc from '../../support/locator/cartLoc'
 import { addItemToBasket } from '../../support/page_object/add-item'
 import { onLogin } from '../../support/page_object/login-command'
 
@@ -8,44 +10,41 @@ describe('Check out item ', () => {
 		cy.fixture('product').then(data => {
 			globalThis.data = data
 		})
+
+		cy.fixture('userCredential').then(user => {
+			globalThis.user = user
+		})
 	})
 
 	beforeEach(() => {
-		onLogin.loginJuice('poy@example.com', 'poyoyo')
+		onLogin.loginJuice(globalThis.user.email, globalThis.user.password)
 		cy.wait(1000)
 	})
 
 	it('Check out item on the basket', () => {
-		cy.get('.mat-button-wrapper')
-			.contains('Your Basket')
+		cy.get(cartLoc.cartNav).should('be.visible').click({ force: true })
+		cy.get(cartLoc.checkoutBtn).click({ force: true })
+		cy.wait(1000)
+		cy.get(addressLoc.selectRadioAddress)
+			.should('be.visible')
 			.click({ force: true })
-		cy.get('#checkoutButton').click({ force: true })
-		cy.wait(2000)
-		cy.get('#mat-radio-41').click()
-		cy.get('.mat-button-wrapper')
-			.contains('Continue')
+		cy.get(cartLoc.nextBtn).should('be.visible').click({ force: true })
+		cy.wait(1000)
+		cy.get(cartLoc.oneDayDelivery).click({ force: true })
+		cy.get(cartLoc.fastDelivery).should('not.be.checked')
+		cy.get(cartLoc.standardDelivery).should('not.be.checked')
+		cy.get(cartLoc.continueBtn)
+			.should('not.be.disabled')
 			.click({ force: true })
-		cy.wait(2000)
-		cy.get('#mat-radio-44').click()
-		cy.get('.mat-button-wrapper')
-			.contains('Continue')
-			.click({ force: true })
-		cy.get('[type="radio"]').check({ force: true }).should('be.checked')
-		cy.get('.mat-button-wrapper')
-			.find('.fa-hand-holding-usd')
-			.click({ force: true })
-		cy.wait(2000)
+		cy.get(cartLoc.walletPayBtn).click()
+		cy.wait(1500)
 		globalThis.data.productName.forEach(element => {
-			cy.get('.cdk-column-product').then(itemName => {
+			cy.get(cartLoc.productItemName).then(itemName => {
 				cy.wrap(itemName).should('contain', element)
 			})
 		})
-		cy.get('.mat-button-wrapper')
-			.contains('Place your order and pay')
-			.click()
-		cy.get('.confirmation').should(
-			'contain',
-			'Thank you for your purchase!'
-		)
+		cy.get(cartLoc.finalCheckoutBtn).should('be.visible').click()
+		cy.get(cartLoc.confirmationMessage).should('be.visible')
+		cy.get(cartLoc.confirmationDeliveryMessage).should('be.visible')
 	})
 })

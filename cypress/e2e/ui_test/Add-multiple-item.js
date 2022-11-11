@@ -8,10 +8,14 @@ describe('Add item to the basket ', () => {
 		cy.fixture('product').then(data => {
 			globalThis.data = data
 		})
+
+		cy.fixture('userCredential').then(user => {
+			globalThis.user = user
+		})
 	})
 
 	beforeEach(() => {
-		onLogin.loginJuice('poy@example.com', 'poyoyo')
+		onLogin.loginJuice(globalThis.user.email, globalThis.user.password)
 		cy.wait(2000)
 	})
 
