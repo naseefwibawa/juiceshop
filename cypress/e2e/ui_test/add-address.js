@@ -12,13 +12,17 @@ describe('Add address', () => {
 		cy.fixture('address').then(data => {
 			globalThis.data = data
 		})
+
+		cy.fixture('userCredential').then(user => {
+			globalThis.user = user
+		})
 	})
 
 	beforeEach(() => {
-		onLogin.loginJuice('poy@example.com', 'poyoyo')
+		onLogin.loginJuice(globalThis.user.email, globalThis.user.password)
 	})
 
-	it('add address', () => {
+	it.only('add address', () => {
 		navigateTo.addNewAddressPage()
 		cy.wait(1000)
 		AddressCheck.checkRequiredField()
@@ -33,7 +37,7 @@ describe('Add address', () => {
 		)
 	})
 
-	it.skip('update address', () => {
+	it('update address', () => {
 		navigateTo.addressPage()
 		AddressCheck.updateUserAddress(globalThis.data.userCity, 'Argentinoz')
 	})

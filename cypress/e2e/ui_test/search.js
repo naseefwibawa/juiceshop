@@ -1,5 +1,7 @@
 /// <reference types="Cypress"/>
 
+import AccountPage from '../../support/locator/AccountPage'
+import Homepage from '../../support/locator/Homepage'
 import { onLogin } from '../../support/page_object/login-command'
 
 describe('Search item', () => {
@@ -13,13 +15,13 @@ describe('Search item', () => {
 		beforeEach(() => {
 			cy.visit('http://localhost:3000/#/')
 			cy.wait(1000)
-			cy.get('.mat-button-wrapper').contains('Dismiss').click()
+			cy.get(Homepage.dismissBtn).should('be.visible').click()
 		})
 
 		it('Validate the search item and add to cart', () => {
 			globalThis.data.productName.forEach(element => {
-				cy.get('#searchQuery').click()
-				cy.get('#mat-input-0')
+				cy.get(Homepage.searchBtn).click()
+				cy.get(Homepage.inputSearchField)
 					.clear({ force: true })
 					.type(element)
 					.type('{enter}')
@@ -37,8 +39,8 @@ describe('Search item', () => {
 		})
 		it('Add item to basket', () => {
 			globalThis.data.productName.forEach(element => {
-				cy.get('#searchQuery').click()
-				cy.get('#mat-input-0')
+				cy.get(Homepage.searchBtn).click()
+				cy.get(Homepage.inputSearchField)
 					.clear({ force: true })
 					.type(element)
 					.type('{enter}')

@@ -1,3 +1,7 @@
+import AccountPage from '../../support/locator/AccountPage'
+import cartLoc from '../../support/locator/cartLoc'
+import Homepage from '../../support/locator/Homepage'
+
 /// <reference types="Cypress"/>
 
 describe('Sign up to Juice shop', () => {
@@ -11,43 +15,42 @@ describe('Sign up to Juice shop', () => {
 		beforeEach('Visit the web', () => {
 			cy.visit('http://localhost:3000/#/')
 			cy.wait(1000)
-			cy.get('.mat-button-wrapper').contains('Dismiss').click()
-			cy.get('.mat-button-wrapper').contains('Account').click()
-			cy.get('#navbarLoginButton').click()
+			cy.get(Homepage.dismissBtn).click()
+			cy.get(Homepage.cookieDismissBtn).click()
+			cy.get(AccountPage.AccNav).should('be.visible').click()
+			cy.get(AccountPage.LoginNav).should('be.visible').click()
 		})
 
 		it('Valid sign up into juice shop', () => {
-			cy.get('#newCustomerLink').click()
-			cy.get('#emailControl').type(email)
-			cy.get('#passwordControl').type(password)
-			cy.get('#repeatPasswordControl').type(password)
-			cy.get('[name="securityQuestion"]').click()
-			cy.get('[role="listbox"]').contains(securityQuestion).click()
-			cy.get('#securityAnswerControl').type(securityAnswer)
-			cy.get('#registerButton').click()
-			cy.get('.mat-simple-snack-bar-content').should(
+			cy.get(AccountPage.notYetCustomerBtn).should('be.visible').click()
+			cy.get(AccountPage.emailReg).type(email)
+			cy.get(AccountPage.passwordReg).type(password)
+			cy.get(AccountPage.repeatPasswordReg).type(password)
+			cy.get(AccountPage.securityQuestion).click()
+			cy.get(AccountPage.listSecQuestion)
+				.contains(securityQuestion)
+				.click()
+			cy.get(AccountPage.securityAnswerReg).type(securityAnswer)
+			cy.get(AccountPage.registerBtn).click()
+			cy.get(AccountPage.confirmationMessage).should(
 				'contain',
 				'Registration completed successfully. You can now log in.'
 			)
 		})
 
 		it('valid login after sign up', () => {
-			cy.get('#email').type(email)
-			cy.get('#password').type(password)
-			cy.get('[type="checkbox"]').check({ force: true })
-			cy.get('#loginButton').click()
-			cy.get('.mat-button-wrapper').contains('Account').click()
-			cy.get('.mat-menu-content')
-				.find('button')
-				.eq(0)
-				.should('contain', email)
+			cy.get(AccountPage.emailField).type(email)
+			cy.get(AccountPage.passwordField).type(password)
+			cy.get(AccountPage.checkboxRememberMe).check({ force: true })
+			cy.get(AccountPage.loginBtn).click()
+			cy.get(cartLoc.cartNav).should('be.visible')
 		})
 
 		it('error message should appear if login not valid', () => {
-			cy.get('#email').type(email)
-			cy.get('#password').type('password')
-			cy.get('#loginButton').click()
-			cy.get('.error').should('contain', 'Invalid email or password.')
+			cy.get(AccountPage.emailField).type(email)
+			cy.get(AccountPage.passwordField).type('password')
+			cy.get(AccountPage.loginBtn).click()
+			cy.get(AccountPage.errorMessage).should('be.visible')
 		})
 	})
 
@@ -88,8 +91,8 @@ describe('Sign up to Juice shop', () => {
 						},
 					})
 					cy.wait(2000)
-					cy.get('.mat-button-wrapper').contains('Dismiss').click()
-					cy.get('.fa-layers-counter').should('contain', 0)
+					cy.get(Homepage.dismissBtn).click()
+					cy.get(cartLoc.cartNav).should('be.visible')
 				})
 		})
 	})

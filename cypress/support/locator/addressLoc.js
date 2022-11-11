@@ -26,6 +26,7 @@ export class addressLoc {
 	static confirmationAddressAdded = '.mat-simple-snack-bar-content'
 	static addressTable = '.mat-table'
 	static addressRow = '.mat-row'
+	static selectRadioAddress = '.mat-radio-outer-circle'
 }
 
 export default addressLoc

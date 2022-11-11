@@ -11,10 +11,10 @@ export class loginJuiceShop {
 		cy.get(Homepage.cookieDismissBtn).click()
 		cy.get(AccountPage.AccNav).should('contain', 'Account').click()
 		cy.get(AccountPage.LoginNav).click()
-		cy.get(AccountPage.email).type(email)
-		cy.get(AccountPage.password).type(password)
+		cy.get(AccountPage.emailField).type(email)
+		cy.get(AccountPage.passwordField).type(password)
 		cy.get(AccountPage.loginBtn).click()
-		cy.get(cartLoc.cartNav).should('contain', 'Your Basket')
+		cy.get(cartLoc.cartNav).should('be.visible')
 	}
 }
 
